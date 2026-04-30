@@ -1,0 +1,41 @@
+{
+  "name": "save-my-tokens",
+  "version": "0.1.0",
+  "description": "Local MCP server that returns compact, symbol-first code context to save agent tokens.",
+  "type": "module",
+  "bin": {
+    "save-my-tokens": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "commander": "latest",
+    "fast-glob": "latest",
+    "ignore": "latest",
+    "typescript": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "tsx": "latest",
+    "typescript-eslint": "latest",
+    "vitest": "latest"
+  }
+}
