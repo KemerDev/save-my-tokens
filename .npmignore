@@ -1,0 +1,6 @@
+src/
+tests/
+cdd/
+.omx/
+coverage/
+*.log
