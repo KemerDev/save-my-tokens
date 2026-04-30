@@ -1,0 +1,11 @@
+{
+  "roots": ["."],
+  "defaultMaxTokens": 4000,
+  "defaultDependencyDepth": 1,
+  "localAi": {
+    "enabled": false,
+    "provider": "ollama",
+    "baseUrl": "http://localhost:11434/v1",
+    "model": "llama3.1"
+  }
+}

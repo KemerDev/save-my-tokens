@@ -1,0 +1,2 @@
+import type { SaveMyTokensConfig } from '../config/schema.js';
+export function validateDependencyDepth(depth: number, config: SaveMyTokensConfig) { return depth <= config.maxDependencyDepthWithoutOverride ? { allowed: true } : { allowed: false, code: 'DEPENDENCY_DEPTH_TOO_HIGH' as const, message: `dependency_depth ${depth} exceeds configured maximum ${config.maxDependencyDepthWithoutOverride}` }; }
