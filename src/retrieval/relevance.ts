@@ -1,4 +1,108 @@
-import type { RuntimeContext } from '../server.js';
-import { lexicalScore } from '../utils/text.js';
-export function rankSymbols(context: RuntimeContext, query: string, limit = 10) { return context.index.symbols.map(s => ({ symbol: s, score: lexicalScore(query, `${s.qualifiedName} ${s.path} ${s.signature ?? ''}`) })).filter(r => r.score > 0).sort((a,b) => b.score - a.score).slice(0, limit); }
-export function rankFiles(context: RuntimeContext, query: string, limit = 10) { return context.index.files.map(f => ({ file: f, score: lexicalScore(query, `${f.path} ${f.language}`) })).filter(r => r.score > 0).sort((a,b) => b.score - a.score).slice(0, limit); }
+import path from "node:path";
+import type { IndexedFile, SymbolRecord } from "../indexer/types.js";
+import type { RuntimeContext } from "../server.js";
+import { lexicalScore } from "../utils/text.js";
+
+const MIN_SYMBOL_SCORE = 0.2;
+
+function toPosix(value: string): string {
+  return value.replace(/\\/g, "/").replace(/\/+/g, "/").replace(/\/$/, "");
+}
+
+function normalizeScope(
+  context: RuntimeContext,
+  scope?: string | null,
+): string | null {
+  if (!scope?.trim()) return null;
+
+  let normalized = toPosix(scope.trim());
+  if (normalized.startsWith("./")) normalized = normalized.slice(2);
+
+  const roots = [context.repository.primaryRoot, ...context.repository.roots]
+    .filter(Boolean)
+    .map((root) => toPosix(path.resolve(root)));
+
+  for (const root of roots) {
+    if (normalized === root) return "";
+    if (normalized.startsWith(`${root}/`))
+      return normalized.slice(root.length + 1);
+  }
+
+  normalized = normalized.replace(/^\/+/, "");
+
+  const exactFile = context.index.files.find(
+    (file) => normalized === file.path || normalized.endsWith(`/${file.path}`),
+  );
+  if (exactFile) return exactFile.path;
+
+  return normalized;
+}
+
+function pathMatchesScope(
+  filePath: string,
+  normalizedScope: string | null,
+): boolean {
+  if (normalizedScope === null || normalizedScope === "") return true;
+  const scope = toPosix(normalizedScope).replace(/^\/+/, "");
+  return (
+    filePath === scope ||
+    filePath.startsWith(`${scope}/`) ||
+    filePath.endsWith(`/${scope}`) ||
+    filePath.includes(`/${scope}/`)
+  );
+}
+
+function scopedSymbols(
+  context: RuntimeContext,
+  scope?: string | null,
+): SymbolRecord[] {
+  const normalizedScope = normalizeScope(context, scope);
+  return context.index.symbols.filter((symbol) =>
+    pathMatchesScope(symbol.path, normalizedScope),
+  );
+}
+
+function scopedFiles(
+  context: RuntimeContext,
+  scope?: string | null,
+): IndexedFile[] {
+  const normalizedScope = normalizeScope(context, scope);
+  return context.index.files.filter((file) =>
+    pathMatchesScope(file.path, normalizedScope),
+  );
+}
+
+export function rankSymbols(
+  context: RuntimeContext,
+  query: string,
+  limit = 10,
+  scope?: string | null,
+) {
+  return scopedSymbols(context, scope)
+    .map((symbol) => ({
+      symbol,
+      score: lexicalScore(
+        query,
+        `${symbol.qualifiedName} ${symbol.path} ${symbol.signature ?? ""}`,
+      ),
+    }))
+    .filter((result) => result.score >= MIN_SYMBOL_SCORE)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+export function rankFiles(
+  context: RuntimeContext,
+  query: string,
+  limit = 10,
+  scope?: string | null,
+) {
+  return scopedFiles(context, scope)
+    .map((file) => ({
+      file,
+      score: lexicalScore(query, `${file.path} ${file.language}`),
+    }))
+    .filter((result) => result.score > 0 || Boolean(scope))
+    .sort((a, b) => b.score - a.score || a.file.path.localeCompare(b.file.path))
+    .slice(0, limit);
+}

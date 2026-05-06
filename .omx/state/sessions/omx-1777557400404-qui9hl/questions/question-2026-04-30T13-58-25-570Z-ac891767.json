@@ -1,0 +1,113 @@
+{
+  "kind": "omx.question/v1",
+  "question_id": "question-2026-04-30T13-58-25-570Z-ac891767",
+  "session_id": "omx-1777557400404-qui9hl",
+  "created_at": "2026-04-30T13:58:25.570Z",
+  "updated_at": "2026-04-30T13:58:44.989Z",
+  "status": "answered",
+  "header": "Skills",
+  "question": "What would you like to do with your local skills?",
+  "options": [
+    {
+      "label": "Add new skill",
+      "value": "add",
+      "description": "Start the skill creation wizard."
+    },
+    {
+      "label": "List details",
+      "value": "list",
+      "description": "Show a more compact detailed inventory."
+    },
+    {
+      "label": "Scan patterns",
+      "value": "scan_patterns",
+      "description": "Look for skill-worthy patterns in this conversation."
+    },
+    {
+      "label": "Import skill",
+      "value": "import",
+      "description": "Import skill markdown from a URL or pasted content."
+    },
+    {
+      "label": "Done",
+      "value": "done",
+      "description": "Exit the skill wizard."
+    }
+  ],
+  "allow_other": true,
+  "other_label": "Other",
+  "multi_select": false,
+  "type": "single-answerable",
+  "questions": [
+    {
+      "id": "next_action",
+      "header": "Skills",
+      "question": "What would you like to do with your local skills?",
+      "options": [
+        {
+          "label": "Add new skill",
+          "value": "add",
+          "description": "Start the skill creation wizard."
+        },
+        {
+          "label": "List details",
+          "value": "list",
+          "description": "Show a more compact detailed inventory."
+        },
+        {
+          "label": "Scan patterns",
+          "value": "scan_patterns",
+          "description": "Look for skill-worthy patterns in this conversation."
+        },
+        {
+          "label": "Import skill",
+          "value": "import",
+          "description": "Import skill markdown from a URL or pasted content."
+        },
+        {
+          "label": "Done",
+          "value": "done",
+          "description": "Exit the skill wizard."
+        }
+      ],
+      "allow_other": true,
+      "other_label": "Other",
+      "multi_select": false,
+      "type": "single-answerable"
+    }
+  ],
+  "source": "skill",
+  "renderer": {
+    "renderer": "tmux-pane",
+    "target": "%15",
+    "launched_at": "2026-04-30T13:58:25.581Z",
+    "return_target": "%13",
+    "return_transport": "tmux-send-keys"
+  },
+  "answer": {
+    "kind": "option",
+    "value": "add",
+    "selected_labels": [
+      "Add new skill"
+    ],
+    "selected_values": [
+      "add"
+    ]
+  },
+  "answers": [
+    {
+      "question_id": "next_action",
+      "index": 0,
+      "answer": {
+        "kind": "option",
+        "value": "add",
+        "selected_labels": [
+          "Add new skill"
+        ],
+        "selected_values": [
+          "add"
+        ]
+      }
+    }
+  ]
+}

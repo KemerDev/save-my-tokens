@@ -1,0 +1,2 @@
+export function staticImportance(reference) { return /auth|valid|repo|db|save|delete|send|fetch|request/i.test(reference) ? 'high' : /log|metric|format/i.test(reference) ? 'low' : 'medium'; }
+//# sourceMappingURL=rankDependencies.js.map

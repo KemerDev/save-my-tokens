@@ -1,0 +1,113 @@
+{
+  "kind": "omx.question/v1",
+  "question_id": "question-2026-04-30T13-01-58-946Z-42a53107",
+  "session_id": "omx-1777554046804-186e8m",
+  "created_at": "2026-04-30T13:01:58.946Z",
+  "updated_at": "2026-04-30T13:02:09.471Z",
+  "status": "answered",
+  "header": "Skill",
+  "question": "What would you like to do with local skills?",
+  "options": [
+    {
+      "label": "List details",
+      "value": "list",
+      "description": "Show the full local skill inventory."
+    },
+    {
+      "label": "Add skill",
+      "value": "add",
+      "description": "Start creating a new skill."
+    },
+    {
+      "label": "Search skills",
+      "value": "search",
+      "description": "Search skills by name, description, triggers, or content."
+    },
+    {
+      "label": "Scan only",
+      "value": "scan",
+      "description": "Run the quick directory scan again."
+    },
+    {
+      "label": "Done",
+      "value": "done",
+      "description": "Exit the skill wizard."
+    }
+  ],
+  "allow_other": true,
+  "other_label": "Other",
+  "multi_select": false,
+  "type": "single-answerable",
+  "questions": [
+    {
+      "id": "next_action",
+      "header": "Skill",
+      "question": "What would you like to do with local skills?",
+      "options": [
+        {
+          "label": "List details",
+          "value": "list",
+          "description": "Show the full local skill inventory."
+        },
+        {
+          "label": "Add skill",
+          "value": "add",
+          "description": "Start creating a new skill."
+        },
+        {
+          "label": "Search skills",
+          "value": "search",
+          "description": "Search skills by name, description, triggers, or content."
+        },
+        {
+          "label": "Scan only",
+          "value": "scan",
+          "description": "Run the quick directory scan again."
+        },
+        {
+          "label": "Done",
+          "value": "done",
+          "description": "Exit the skill wizard."
+        }
+      ],
+      "allow_other": true,
+      "other_label": "Other",
+      "multi_select": false,
+      "type": "single-answerable"
+    }
+  ],
+  "source": "skill",
+  "renderer": {
+    "renderer": "tmux-pane",
+    "target": "%10",
+    "launched_at": "2026-04-30T13:01:58.957Z",
+    "return_target": "%8",
+    "return_transport": "tmux-send-keys"
+  },
+  "answer": {
+    "kind": "option",
+    "value": "scan",
+    "selected_labels": [
+      "Scan only"
+    ],
+    "selected_values": [
+      "scan"
+    ]
+  },
+  "answers": [
+    {
+      "question_id": "next_action",
+      "index": 0,
+      "answer": {
+        "kind": "option",
+        "value": "scan",
+        "selected_labels": [
+          "Scan only"
+        ],
+        "selected_values": [
+          "scan"
+        ]
+      }
+    }
+  ]
+}

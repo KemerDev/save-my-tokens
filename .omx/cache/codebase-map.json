@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "worktreeRoot": "/mnt/c/Users/kemer/Desktop/save-my-tokens",
+  "gitDir": "/mnt/c/Users/kemer/Desktop/save-my-tokens/.git",
+  "indexMtimeMs": 1777981434760.7014,
+  "indexSize": 8463,
+  "map": "  src/: cli, server\n  src/config/: loadConfig, schema\n  src/guardrails/: depth, pathSafety, secretRedaction, tokenBudget\n  src/indexer/: buildIndex, cache, dependencyGraph, fileTree, importGraph, symbolIndex, types\n  src/languages/: languageAdapter, adapter, dependencies, symbols\n  src/local-ai/: client, rankDependencies, summarize\n  src/mcp/: registerTools, schemas, askCodebase, common, explainSymbolDependencies, getExactSnippet, getFileSummary, getRelevantContext, getSymbolContext, getUsageContext\n  src/retrieval/: contextPlanner, recommendations, relevance\n  src/utils/: errors, logger, text\n  tests/: duplicates, emailSender, large, repo, service, util, buildIndex.test, tools.test, config.test, pathSafety.test\n  (root): eslint.config, vitest.config",
+  "createdAt": "2026-05-06T08:29:17.685Z"
+}

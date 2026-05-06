@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:\\\\Users\\\\kemer\\\\Desktop\\\\save-my-tokens\\\" && git config --global core.excludesfile\",\"description\":\"Find global gitignore path\"}",
+  "error": "Exit code 1",
+  "timestamp": "2026-05-06T09:41:37.420Z",
+  "retry_count": 3
+}

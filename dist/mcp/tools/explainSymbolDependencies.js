@@ -1,0 +1,5 @@
+import { explainSymbolDependenciesInputSchema } from '../schemas.js';
+import { catchTool, common, resolveOne } from './common.js';
+export function explainSymbolDependencies(context, raw) { return catchTool(() => { const input = explainSymbolDependenciesInputSchema.parse(raw); const resolved = resolveOne(context, input.symbol, input.file_hint); if ('error' in resolved)
+    return resolved.error; const deps = context.index.dependencies.filter(d => d.fromSymbolId === resolved.id); const summary = `${resolved.qualifiedName} has ${deps.length} direct indexed dependencies.`; return { ...common(input.max_tokens, [summary, ...deps.map(d => d.reference)], [], deps.some(d => d.resolution === 'unresolved') ? 'medium' : 'high'), symbol: resolved.qualifiedName, summary, dependencies: deps.map(d => ({ reference: d.reference, relationship: d.relationship, importance: d.importance, resolution: d.resolution, location: d.location })) }; }); }
+//# sourceMappingURL=explainSymbolDependencies.js.map

@@ -1,0 +1,45 @@
+## Ralph Session - Indexing Bug Fixes
+
+### Iteration 1
+
+**Files changed:**
+- src/indexer/symbolIndex.ts
+- src/languages/typescript/adapter.ts
+- src/guardrails/tokenBudget.ts
+- src/mcp/tools/getSymbolContext.ts
+
+**Bugs fixed:**
+
+US-001: resolveDependencyTargets - Map collision (symbolIndex.ts)
+- Old: `new Map(symbols.map(s => [s.name, s]))` - last-write-wins for duplicate names
+- New: Map<string, SymbolRecord[]> multi-value map; prefers same-file candidate for collisions
+- Impact: `constructor`, `create`, `save`, etc. across multiple classes now resolve correctly
+
+US-002: kindOf returns 'unknown' for VariableDeclaration (adapter.ts)
+- Old: `ts.isVariableStatement(n) || ts.isPropertyDeclaration(n)`
+- New: added `ts.isVariableDeclaration(n)` — addSym is called with the VariableDeclaration node, not VariableStatement
+- Impact: all const/let/var declarations now have kind='variable'
+
+US-003: resolveImport .js→.ts rewrite missing (adapter.ts)
+- Old: relative source used verbatim, so './foo.js' stayed as 'src/foo.js'
+- New: `source.replace(/\.js$/, '.ts').replace(/\.jsx$/, '.tsx')` before path joining
+- Impact: all ImportRecord.resolvedPath values now correctly point to .ts files for ESM imports
+
+US-004: NewExpression not tracked (adapter.ts)
+- Old: `ts.isCallExpression` check with dead `ref.startsWith('new ')` ternary
+- New: separate `ts.isNewExpression(n)` branch records relationship='constructs'
+- Impact: constructor usage (e.g. `new UserRepository()`) now appears in dependency graph
+
+US-005: reservePrimaryContext budget overrun (tokenBudget.ts)
+- Old: `(required && estimatedTokens <= b.requestedMaxTokens)` accepted content without setting truncated
+- New: split into two branches; second branch sets `b.truncated = true` when overrunning
+- Impact: `token_budget.truncated` is now truthful when response exceeds max_tokens
+
+US-006: omitted_dependencies at depth=0 (getSymbolContext.ts)
+- Old: `deps.slice(included.length)` where included=[] at depth=0 → returned all deps as "omitted"
+- New: `input.dependency_depth > 0 ? deps.slice(included.length)... : []`
+- Impact: depth=0 responses no longer waste tokens listing all deps as omitted
+
+**Verification:**
+- npm run build: PASS (0 TypeScript errors)
+- npm test: PASS (27/27 tests)

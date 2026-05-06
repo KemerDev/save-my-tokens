@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "started_at": "2026-05-01T10:56:20.828Z",
+  "original_prompt": "/ralph When i enter the wsl and install it globbaly in the wsl kemerios@kemerios-work:/mnt/c/Users/kemerios/Desktop/save-my-tokens$ npm install -g . in the \\\\wsl.localhost\\Ubuntu\\home\\kemerios\\.nvm\\versions\\node\\v25.9.0\\lib\\node_modules i get only a weird file called save-my-tokens and also installing it in codex inside the wsl \"\\\\wsl.localhost\\Ubuntu\\home\\kemerios\\.codex\\config.toml\" i always get this issue ⚠ MCP client for `save-my-tokens` failed to start: MCP startup failed: handshaking with MCP server failed: connection\n  closed: initialize response\n\n⚠ MCP startup incomplete (failed: save-my-tokens) , does the indexing start before the handshake or something else happes too?",
+  "session_id": "032bfdcb-3642-4d91-b462-45d9187ebece",
+  "project_path": "C:\\Users\\kemerios\\Desktop\\save-my-tokens",
+  "reinforcement_count": 0,
+  "awaiting_confirmation": true,
+  "last_checked_at": "2026-05-01T10:56:20.828Z"
+}

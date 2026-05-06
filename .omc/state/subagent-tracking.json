@@ -1,0 +1,81 @@
+{
+  "agents": [
+    {
+      "agent_id": "a5b311b15b3b8a8f5",
+      "agent_type": "worker-1",
+      "started_at": "2026-04-30T13:57:58.586Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-30T14:02:51.639Z",
+      "duration_ms": 293053
+    },
+    {
+      "agent_id": "afcbb6927e15b15d7",
+      "agent_type": "worker-2",
+      "started_at": "2026-04-30T13:58:08.463Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a9fece77b68b7f65e",
+      "agent_type": "worker-3",
+      "started_at": "2026-04-30T13:58:17.471Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-30T13:59:15.753Z",
+      "duration_ms": 58282
+    },
+    {
+      "agent_id": "a4bee7c1a1d446a9a",
+      "agent_type": "worker-3",
+      "started_at": "2026-04-30T14:02:58.437Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "aedfd485a5aa53afb",
+      "agent_type": "worker-2",
+      "started_at": "2026-04-30T14:03:58.917Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a26d56e9f9f7ff422",
+      "agent_type": "oh-my-claudecode:architect",
+      "started_at": "2026-05-01T10:45:40.387Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-01T10:47:09.243Z",
+      "duration_ms": 88856
+    },
+    {
+      "agent_id": "a9a03b75a9cafb044",
+      "agent_type": "oh-my-claudecode:architect",
+      "started_at": "2026-05-01T11:01:34.763Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-01T11:03:27.227Z",
+      "duration_ms": 112464
+    },
+    {
+      "agent_id": "abc00fe044f95d4f0",
+      "agent_type": "oh-my-claudecode:architect",
+      "started_at": "2026-05-01T11:06:07.199Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "accf3f1f314f9f311",
+      "agent_type": "oh-my-claudecode:architect",
+      "started_at": "2026-05-02T12:16:46.948Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-02T12:17:44.014Z",
+      "duration_ms": 57066
+    }
+  ],
+  "total_spawned": 9,
+  "total_completed": 5,
+  "total_failed": 0,
+  "last_updated": "2026-05-06T09:01:15.728Z"
+}

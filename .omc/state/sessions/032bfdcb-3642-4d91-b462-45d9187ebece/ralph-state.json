@@ -1,0 +1,12 @@
+{
+  "active": true,
+  "iteration": 1,
+  "max_iterations": 100,
+  "task_description": "Fix MCP handshake failure: connection closed before initialize response when running save-my-tokens via npm install -g . in WSL",
+  "_meta": {
+    "mode": "ralph",
+    "sessionId": "032bfdcb-3642-4d91-b462-45d9187ebece",
+    "updatedAt": "2026-05-01T10:56:40.556Z",
+    "updatedBy": "state_write_tool"
+  }
+}

@@ -1,0 +1,2 @@
+export function validateDependencyDepth(depth, config) { return depth <= config.maxDependencyDepthWithoutOverride ? { allowed: true } : { allowed: false, code: 'DEPENDENCY_DEPTH_TOO_HIGH', message: `dependency_depth ${depth} exceeds configured maximum ${config.maxDependencyDepthWithoutOverride}` }; }
+//# sourceMappingURL=depth.js.map

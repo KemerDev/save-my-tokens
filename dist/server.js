@@ -1,0 +1,10 @@
+import { createRepositoryContext } from './config/loadConfig.js';
+import { buildIndex } from './indexer/buildIndex.js';
+import { createDiskCache, makeCacheId } from './indexer/diskCache.js';
+import { createLogger } from './utils/logger.js';
+import { createLocalAiClient } from './local-ai/client.js';
+export async function createRuntimeContext(config) { const repository = createRepositoryContext(config); const logger = createLogger(config.logLevel, true); const cache = createDiskCache(); const cacheId = makeCacheId(repository); const cached = await cache.read(repository, config); const index = cached ?? await buildIndex(repository, config); if (!cached)
+    await cache.write(repository, config, index); const localAi = config.localAi.enabled ? createLocalAiClient(config.localAi) : null; return { config, repository, index, localAi, logger, cacheId }; }
+export async function createMcpServer(context) { const { McpServer } = await import('@modelcontextprotocol/sdk/server/mcp.js'); const { registerTools } = await import('./mcp/registerTools.js'); const server = new McpServer({ name: 'save-my-tokens', version: '0.1.0' }); registerTools(server, context); return server; }
+export async function startStdioServer(config) { const [{ StdioServerTransport }, { McpServer }] = await Promise.all([import('@modelcontextprotocol/sdk/server/stdio.js'), import('@modelcontextprotocol/sdk/server/mcp.js')]); const { registerTools } = await import('./mcp/registerTools.js'); const server = new McpServer({ name: 'save-my-tokens', version: '0.1.0' }); let resolveContext; const contextPromise = new Promise(resolve => { resolveContext = resolve; }); registerTools(server, contextPromise); await server.connect(new StdioServerTransport()); resolveContext(await createRuntimeContext(config)); }
+//# sourceMappingURL=server.js.map

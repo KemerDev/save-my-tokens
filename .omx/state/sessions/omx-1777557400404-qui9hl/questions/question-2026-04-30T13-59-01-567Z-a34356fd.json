@@ -1,0 +1,87 @@
+{
+  "kind": "omx.question/v1",
+  "question_id": "question-2026-04-30T13-59-01-567Z-a34356fd",
+  "session_id": "omx-1777557400404-qui9hl",
+  "created_at": "2026-04-30T13:59:01.567Z",
+  "updated_at": "2026-04-30T13:59:56.215Z",
+  "status": "error",
+  "header": "New Skill",
+  "question": "Skill name? Use lowercase letters/numbers with hyphens only, for example: custom-logger",
+  "options": [],
+  "allow_other": true,
+  "other_label": "Skill name",
+  "multi_select": false,
+  "type": "single-answerable",
+  "questions": [
+    {
+      "id": "name",
+      "header": "New Skill",
+      "question": "Skill name? Use lowercase letters/numbers with hyphens only, for example: custom-logger",
+      "options": [],
+      "allow_other": true,
+      "other_label": "Skill name",
+      "multi_select": false,
+      "type": "single-answerable"
+    },
+    {
+      "id": "description",
+      "question": "One-line description?",
+      "options": [],
+      "allow_other": true,
+      "other_label": "Description",
+      "multi_select": false,
+      "type": "single-answerable"
+    },
+    {
+      "id": "triggers",
+      "question": "Trigger keywords, comma-separated?",
+      "options": [],
+      "allow_other": true,
+      "other_label": "Triggers",
+      "multi_select": false,
+      "type": "single-answerable"
+    },
+    {
+      "id": "argument_hint",
+      "question": "Argument hint? Leave blank if none.",
+      "options": [],
+      "allow_other": true,
+      "other_label": "Argument hint",
+      "multi_select": false,
+      "type": "single-answerable"
+    },
+    {
+      "id": "scope",
+      "question": "Where should this skill be created?",
+      "options": [
+        {
+          "label": "User-level",
+          "value": "user",
+          "description": "Available across all projects at ~/.codex/skills/."
+        },
+        {
+          "label": "Project-level",
+          "value": "project",
+          "description": "Available only in this repo at .codex/skills/."
+        }
+      ],
+      "allow_other": false,
+      "other_label": "Other",
+      "multi_select": false,
+      "type": "single-answerable"
+    }
+  ],
+  "source": "skill",
+  "renderer": {
+    "renderer": "tmux-pane",
+    "target": "%16",
+    "launched_at": "2026-04-30T13:59:01.579Z",
+    "return_target": "%13",
+    "return_transport": "tmux-send-keys"
+  },
+  "error": {
+    "code": "question_ui_failed",
+    "message": "Question UI cancelled by user.",
+    "at": "2026-04-30T13:59:56.215Z"
+  }
+}

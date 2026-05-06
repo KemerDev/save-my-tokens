@@ -21,10 +21,11 @@ const descriptions: Record<string, string> = {
   get_file_summary: 'Summarize a file structure without returning the full file.',
   read_full_file_escape_hatch: 'Guarded fallback for justified small full-file reads; prefer symbols/snippets first.'
 };
-export function registerTools(server: McpServer, context: RuntimeContext): void {
+export function registerTools(server: McpServer, context: RuntimeContext | Promise<RuntimeContext>): void {
+  const ctx = context instanceof Promise ? context : Promise.resolve(context);
   const specs = [
     ['ask_codebase', askCodebaseInputSchema, askCodebase], ['resolve_symbol', resolveSymbolInputSchema, resolveSymbol], ['get_symbol_context', getSymbolContextInputSchema, getSymbolContext], ['explain_symbol_dependencies', explainSymbolDependenciesInputSchema, explainSymbolDependencies], ['get_usage_context', getUsageContextInputSchema, getUsageContext], ['get_relevant_context', getRelevantContextInputSchema, getRelevantContext], ['get_exact_snippet', getExactSnippetInputSchema, getExactSnippet], ['get_file_summary', getFileSummaryInputSchema, getFileSummary], ['read_full_file_escape_hatch', readFullFileEscapeHatchInputSchema, readFullFileEscapeHatch]
   ] as const;
-  for (const [name, schema, handler] of specs) server.registerTool(name, { title: name, description: descriptions[name], inputSchema: schema.shape }, (args: unknown) => handler(context, args) as never);
+  for (const [name, schema, handler] of specs) server.registerTool(name, { title: name, description: descriptions[name], inputSchema: schema.shape }, async (args: unknown) => handler(await ctx, args) as never);
 }
 export function registeredToolNames(): string[] { return [...TOOL_NAMES]; }
