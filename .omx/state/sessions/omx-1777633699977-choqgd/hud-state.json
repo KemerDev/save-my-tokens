@@ -1,6 +1,0 @@
-{
-  "last_turn_at": "2026-05-01T11:18:49.882Z",
-  "last_progress_at": "2026-05-01T11:18:49.882Z",
-  "turn_count": 1,
-  "last_agent_output": "### Question\nWhy does the `save-my-tokens` MCP server fail with `connection closed: initialize respo"
-}
