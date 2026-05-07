@@ -1,26 +1,63 @@
 # save-my-tokens
 
-`save-my-tokens` is a local TypeScript MCP server that gives cloud coding agents compact, symbol-first code context instead of broad raw file reads.
+`save-my-tokens` is a local TypeScript MCP server that gives coding agents compact, symbol-first code context instead of broad raw file reads.
 
 Core rule: **Never read a full file when the task probably needs a symbol.**
 
-## Install and run
+---
+
+## Installation
+
+### Prerequisites
+
+- Node.js ≥ 20
+- npm
+
+### 1. Clone the repo
 
 ```bash
-npx save-my-tokens --root /path/to/repo --stdio
-npm install -g save-my-tokens
-save-my-tokens --root /path/to/repo --stdio
+git clone <repo-url>
+cd save-my-tokens
 ```
 
-Local checkout:
+### 2. Run the install script
+
+The install script builds the package, installs it globally, and configures Claude Code and Codex automatically.
+
+**Windows (PowerShell):**
+
+```powershell
+.\scripts\install.ps1
+```
+
+**WSL / Linux / macOS:**
 
 ```bash
-npm install
-npm run build
-node dist/cli.js --root tests/fixtures/basic --stdio
+chmod +x scripts/install.sh
+./scripts/install.sh
 ```
+
+### What the installer does
+
+| Step | Description |
+|------|-------------|
+| Build & pack | Compiles TypeScript and creates a local `.tgz` |
+| Global install | Runs `npm install -g` with the packed file |
+| Claude Code | Copies `configs/CLAUDE.md` to `~/.claude/CLAUDE.md` and registers the MCP server in `~/.claude.json` |
+| Codex (WSL) | Appends `configs/AGENTS.md` to `~/.codex/AGENTS.md` and registers the MCP server in `~/.codex/config.toml` |
+
+> Codex setup is skipped automatically if `~/.codex` is not found.  
+> All steps are idempotent — safe to run multiple times.
+
+### Re-installing after changes
+
+Use the same scripts to rebuild and reinstall at any time. They detect existing config and skip unchanged entries.
+
+---
 
 ## MCP client config
+
+Manual config if you prefer not to use the install scripts:
 
 ```json
 {
