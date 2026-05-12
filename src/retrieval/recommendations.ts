@@ -10,7 +10,7 @@ export function recommendSymbolContext(
       symbol: symbol.qualifiedName,
       file_hint: symbol.path,
       dependency_depth: 1,
-      max_tokens: 3000,
+      max_tokens: 1200,
     },
     reason,
   };
@@ -29,7 +29,7 @@ export function recommendSnippet(
       : reason;
   return {
     tool: "get_exact_snippet",
-    args: { path, start_line, end_line: cappedEndLine, max_tokens: 2000 },
+    args: { path, start_line, end_line: cappedEndLine, max_tokens: 800 },
     reason: cappedReason,
   };
 }
@@ -37,5 +37,5 @@ export function recommendResolve(
   symbol: string,
   reason = "Resolve symbol before requesting context",
 ): RecommendedCall {
-  return { tool: "resolve_symbol", args: { symbol, max_results: 10 }, reason };
+  return { tool: "resolve_symbol", args: { symbol, max_results: 5 }, reason };
 }
