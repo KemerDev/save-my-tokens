@@ -58,7 +58,7 @@ export declare const recommendedCallSchema: z.ZodObject<{
         read_full_file_escape_hatch: "read_full_file_escape_hatch";
     }>;
     args: z.ZodRecord<z.ZodString, z.ZodUnknown>;
-    reason: z.ZodString;
+    reason: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export declare const tokenBudgetReportSchema: z.ZodObject<{
     requested_max_tokens: z.ZodNumber;
@@ -84,7 +84,7 @@ export declare const commonMetadataSchema: z.ZodObject<{
             read_full_file_escape_hatch: "read_full_file_escape_hatch";
         }>;
         args: z.ZodRecord<z.ZodString, z.ZodUnknown>;
-        reason: z.ZodString;
+        reason: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>>;
     confidence: z.ZodEnum<{
         high: "high";

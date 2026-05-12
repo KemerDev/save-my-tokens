@@ -15,6 +15,6 @@ catch (error) {
     console.error(`${prefix}${toErrorMessage(error)}`);
     process.exitCode = 1;
 } }); return program; }
-if (import.meta.url === `file://${process.argv[1]}`)
+if (import.meta.url === `file://${process.argv[1]}` || import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`)
     await createProgram().parseAsync(process.argv);
 //# sourceMappingURL=cli.js.map

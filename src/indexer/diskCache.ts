@@ -36,8 +36,9 @@ export function makeCacheId(repository: RepositoryContext): string {
   return `${rootHash}-${branch}`;
 }
 
-function currentGitHead(root: string): string {
-  return gitExec('git rev-parse HEAD', root, 'no-git');
+function currentGitHead(root: string): string | null {
+  const result = gitExec('git rev-parse HEAD', root, '');
+  return result.length > 0 ? result : null;
 }
 
 function hashConfig(config: SaveMyTokensConfig): string {
@@ -57,7 +58,8 @@ export function createDiskCache(): IndexCache {
       try {
         const envelope: CacheEnvelope = JSON.parse(readFileSync(file, 'utf8'));
         if (envelope.version !== CACHE_VERSION) return null;
-        if (envelope.gitHead !== currentGitHead(repository.primaryRoot)) return null;
+        const head = currentGitHead(repository.primaryRoot);
+        if (head === null || envelope.gitHead !== head) return null;
         if (envelope.configHash !== hashConfig(config)) return null;
         return envelope.index;
       } catch {
@@ -66,13 +68,15 @@ export function createDiskCache(): IndexCache {
     },
 
     async write(repository: RepositoryContext, config: SaveMyTokensConfig, index: CodebaseIndex): Promise<void> {
+      const head = currentGitHead(repository.primaryRoot);
+      if (head === null) return;
       const id = makeCacheId(repository);
       const dir = cacheDir();
       mkdirSync(dir, { recursive: true });
       const envelope: CacheEnvelope = {
         version: CACHE_VERSION,
         cacheId: id,
-        gitHead: currentGitHead(repository.primaryRoot),
+        gitHead: head,
         configHash: hashConfig(config),
         index,
       };
