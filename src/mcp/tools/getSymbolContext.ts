@@ -1,6 +1,6 @@
 import type { RuntimeContext } from "../../server.js";
 import { getSymbolContextInputSchema } from "../schemas.js";
-import { catchTool, common, resolveOne } from "./common.js";
+import { catchTool, common, fitList, resolveOne } from "./common.js";
 import { validateDependencyDepth } from "../../guardrails/depth.js";
 import { snippetForRange } from "../../retrieval/contextPlanner.js";
 import {
@@ -95,17 +95,20 @@ export function getSymbolContext(context: RuntimeContext, raw: unknown) {
         summary:
           bodyOmittedReason ?? `${resolved.kind} ${resolved.qualifiedName}`,
       },
-      self_references: deps
-        .filter(
-          (d) =>
-            d.relationship === "calls" &&
-            !d.reference.startsWith("this.") &&
-            d.resolution !== "external",
-        )
-        .map((d) => toRef(d, input.dependency_depth)),
-      this_references: deps
-        .filter((d) => d.reference.startsWith("this."))
-        .map((d) => toRef(d, input.dependency_depth)),
+      ...(() => {
+        const selfRefDeps = deps.filter(
+          (d) => d.relationship === "calls" && !d.reference.startsWith("this.") && d.resolution !== "external",
+        );
+        const thisRefDeps = deps.filter((d) => d.reference.startsWith("this."));
+        const { accepted: acceptedSelf, omitted: omittedSelf } = fitList(selfRefDeps, input.max_tokens, (d) => d.reference);
+        const { accepted: acceptedThis, omitted: omittedThis } = fitList(thisRefDeps, input.max_tokens, (d) => d.reference);
+        return {
+          self_references: acceptedSelf.map((d) => toRef(d, input.dependency_depth)),
+          omitted_self_references_count: omittedSelf.length,
+          this_references: acceptedThis.map((d) => toRef(d, input.dependency_depth)),
+          omitted_this_references_count: omittedThis.length,
+        };
+      })(),
       included_dependencies: included,
       external_dependencies: deps
         .filter((d) => d.resolution === "external")
