@@ -1,6 +1,6 @@
 export type AbsolutePath = string;
 export type RepoRelativePath = string;
-export type SupportedLanguage = 'typescript' | 'tsx' | 'javascript' | 'jsx' | 'json' | 'markdown' | 'python';
+export type SupportedLanguage = 'typescript' | 'tsx' | 'javascript' | 'jsx' | 'json' | 'markdown' | 'python' | 'c' | 'cpp';
 export type SymbolKind = 'class' | 'function' | 'method' | 'variable' | 'type' | 'module' | 'route' | 'unknown';
 export type ExportStatus = 'exported' | 'default-exported' | 'local' | 'unknown';
 export type SymbolId = string;
